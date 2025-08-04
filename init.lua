@@ -152,6 +152,9 @@ vim.o.splitbelow = true
 vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
+vim.o.tabstop = 4 -- A TAB character looks like 4 spaces
+vim.o.expandtab = true -- Pressing the TAB key will insert spaces instead of a TAB character
+vim.o.shiftwidth = 4 -- Number of spaces inserted when indenting
 -- Preview substitutions live, as you type!
 vim.o.inccommand = 'split'
 
