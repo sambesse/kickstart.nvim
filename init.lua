@@ -191,11 +191,32 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n><Cmd>q<CR><Cmd>bdelete! term:*<CR>
 vim.keymap.set('n', '<leader>b', '<Cmd>Neotree toggle<CR>', { desc = 'Toggle Neotree file browser' })
 vim.keymap.set('n', '<leader>T', '<C-w>s<Cmd>terminal<CR>i', { desc = 'Make a new terminal at the bottom on the screen and enter terminal mode' })
 
+--found on reddit: hit #<CR> to insert # new lines below, keeping cursor in same same #<S-CR> for above
+vim.keymap.set('n', '<CR>', '@="m`o<C-V><Esc>``"<CR>')
+vim.keymap.set('n', '<S-CR>', '@="m`O<C-V><Esc>``"<CR>')
+
+-- necessary to add this to settings.json of windows terminal to get this to work
+--     "command":
+--     {
+--         "action": "sendInput",
+--         "input": "\u001b[13;5u"
+--     },
+--     "id": "User.sendInput.F8A79DCB"
+-- },
+-- {
+--     "command":
+--     {
+--         "action": "sendInput",
+--         "input": "\u001b[13;2u"
+--     },
+--     "id": "User.sendInput.8882FD6D"
+-- }
+
 -- TIP: Disable arrow keys in normal mode
--- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
--- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
--- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
--- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
+vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
+vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
+vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
+vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
