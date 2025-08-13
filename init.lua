@@ -28,6 +28,8 @@ What is Kickstart?
     The goal is that you can read every line of code, top-to-bottom, understand
     what your configuration is doing, and modify it to suit your needs.
 
+
+
     Once you've done that, you can start exploring, configuring and tinkering to
     make Neovim your own! That might mean leaving Kickstart just the way it is for a while
     or immediately breaking it into modular pieces. It's up to you!
@@ -278,7 +280,7 @@ require('lazy').setup({
   'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
   {
     'rbong/vim-flog',
-    lazy = true,
+    lazy = false,
     cmd = { 'Flog', 'Flogsplit', 'Floggit' },
     dependencies = {
       'tpope/vim-fugitive',
