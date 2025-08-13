@@ -185,11 +185,11 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 --
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n><Cmd>q<CR>', { desc = 'Exit terminal mode' })
+vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n><Cmd>q<CR><Cmd>bdelete! term:*<CR>', { desc = 'Exit terminal mode' })
 
 -- expedited file browsing and terminals
-vim.keymap.set('n', '<leader>b', '<Cmd>Neotree toggle<CR>')
-vim.keymap.set('n', '<leader>T', '<C-w>s<Cmd>terminal<CR>')
+vim.keymap.set('n', '<leader>b', '<Cmd>Neotree toggle<CR>', { desc = 'Toggle Neotree file browser' })
+vim.keymap.set('n', '<leader>T', '<C-w>s<Cmd>terminal<CR>i', { desc = 'Make a new terminal at the bottom on the screen and enter terminal mode' })
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -255,7 +255,14 @@ rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
-
+  {
+    'rbong/vim-flog',
+    lazy = true,
+    cmd = { 'Flog', 'Flogsplit', 'Floggit' },
+    dependencies = {
+      'tpope/vim-fugitive',
+    },
+  },
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
@@ -468,7 +475,6 @@ require('lazy').setup({
       end, { desc = '[S]earch [N]eovim files' })
     end,
   },
-
   -- LSP Plugins
   {
     -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
@@ -1019,6 +1025,20 @@ require('lazy').setup({
     },
   },
 })
+require('neo-tree').setup {
+  event_handlers = {
+
+    {
+      event = 'file_open_requested',
+      handler = function()
+        -- auto close
+        -- vim.cmd("Neotree close")
+        -- OR
+        require('neo-tree.command').execute { action = 'close' }
+      end,
+    },
+  },
+}
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
