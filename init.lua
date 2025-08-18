@@ -192,6 +192,13 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n><Cmd>q<CR><Cmd>bdelete! term:*<CR>
 -- expedited file browsing and terminals
 vim.keymap.set('n', '<leader>b', '<Cmd>Neotree toggle<CR>', { desc = 'Toggle Neotree file browser' })
 vim.keymap.set('n', '<leader>T', '<C-w>s<Cmd>terminal<CR>i', { desc = 'Make a new terminal at the bottom on the screen and enter terminal mode' })
+-- vim.keymap.set('n', '<leader>m', '<Cmd>!./not_make_file.sh<CR>', { desc = 'Run not make file if in cwd' })
+vim.keymap.set(
+  'n',
+  '<leader>m',
+  '<C-w>s<Cmd>terminal<CR>i./not_make_file.sh<CR>',
+  { desc = 'Make a new terminal at the bottom on the screen and enter terminal mode' }
+)
 
 --found on reddit: hit #<CR> to insert # new lines below, keeping cursor in same same #<S-CR> for above
 vim.keymap.set('n', '<CR>', '@="m`o<C-V><Esc>``"<CR>')
