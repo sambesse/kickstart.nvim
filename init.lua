@@ -185,9 +185,22 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
 --
+local function purge_terminals()
+  local bufs = vim.api.nvim_list_bufs()
+  for _, v in ipairs(bufs) do
+    if vim.api.nvim_buf_is_loaded(v) then
+      local buf_name = vim.api.nvim_buf_get_name(v)
+      local i = string.find(buf_name, 'term:')
+      if i ~= nil then
+        vim.api.nvim_buf_delete(v, { unload = true, force = true })
+      end
+    end
+  end
+end
+--
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n><Cmd>q<CR><Cmd>bdelete! term:*<CR>', { desc = 'Exit terminal mode' })
+vim.keymap.set('t', '<Esc><Esc>', purge_terminals, { desc = 'Exit terminal mode' })
 
 -- expedited file browsing and terminals
 vim.keymap.set('n', '<leader>b', '<Cmd>Neotree toggle<CR>', { desc = 'Toggle Neotree file browser' })
